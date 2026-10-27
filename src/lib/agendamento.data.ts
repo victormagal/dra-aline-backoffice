@@ -3,6 +3,7 @@ export const pacientes = [
   { id: 'p1', nome: 'Patrícia Regina B. Moura' },
   { id: 'p2', nome: 'Paciente 2' },
   { id: 'p3', nome: 'Paciente 3' },
+  { id: 'p4', nome: 'Paciente 4' },
 ];
 
 export const tiposAtendimento = [
@@ -21,10 +22,10 @@ export const duracoes = [
   { valor: '60', rotulo: '60 min' },
 ] as const;
 
-// Horários já ocupados (data ISO + horário + profissional)
+// Horários já ocupados (id da consulta + data ISO + horário + profissional)
 export const horariosOcupados = [
-  { data: '2026-10-27', horario: '09:00', profissional: 'Dra. Aline Magalhães' },
-  { data: '2026-10-27', horario: '09:40', profissional: 'Dra. Aline Magalhães' },
+  { id: '1', data: '2026-10-27', horario: '09:00', profissional: 'Dra. Aline Magalhães' },
+  { id: '2', data: '2026-10-27', horario: '09:40', profissional: 'Dra. Aline Magalhães' },
 ];
 
 // Id do formulário, compartilhado entre a página (botão do cabeçalho) e o formulário.

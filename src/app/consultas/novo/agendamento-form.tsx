@@ -15,7 +15,22 @@ import { agendamentoSchema, mascaraHorario, type AgendamentoInput, type Agendame
 import { mascaraData, paraIso } from '../../../lib/pacientes.schema';
 import styles from './novo.module.css';
 
-export default function AgendamentoForm() {
+type Props = {
+  modo?: 'nova' | 'editar';
+  consultaId?: string;
+  inicial?: AgendamentoInput;
+};
+
+const valoresNovo: AgendamentoInput = {
+  paciente: '',
+  tipo: '',
+  profissional: 'Dra. Aline Magalhães',
+  data: '27/10/2026',
+  horario: '09:00',
+  duracao: '',
+};
+
+export default function AgendamentoForm({ modo = 'nova', consultaId, inicial = valoresNovo }: Props) {
   const [mensagem, setMensagem] = useState<string | null>(null);
 
   const {
@@ -28,21 +43,15 @@ export default function AgendamentoForm() {
     mode: 'onBlur',
     reValidateMode: 'onBlur',
     resolver: zodResolver(agendamentoSchema),
-    defaultValues: {
-      paciente: '',
-      tipo: '',
-      profissional: 'Dra. Aline Magalhães',
-      data: '27/10/2026',
-      horario: '09:00',
-      duracao: '',
-    },
+    defaultValues: inicial,
   });
 
   async function onSubmit(values: AgendamentoValues) {
     setMensagem(null);
     const dataIso = paraIso(values.data);
     const ocupado = horariosOcupados.some(
-      (h) => h.data === dataIso && h.horario === values.horario && h.profissional === values.profissional,
+      (h) =>
+        h.id !== consultaId && h.data === dataIso && h.horario === values.horario && h.profissional === values.profissional,
     );
     if (ocupado) {
       setError('horario', { message: 'Este horário já está ocupado para a profissional' });
@@ -50,7 +59,7 @@ export default function AgendamentoForm() {
     }
     // Simulação: a integração com a API entra depois.
     await new Promise((r) => setTimeout(r, 300));
-    setMensagem('Agendamento salvo (simulação).');
+    setMensagem(modo === 'editar' ? 'Alterações salvas (simulação).' : 'Agendamento salvo (simulação).');
   }
 
   return (

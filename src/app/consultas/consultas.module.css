@@ -117,3 +117,101 @@
 .agendado { background: var(--soft); color: var(--brand-primary); }
 .realizado { background: var(--ok-bg); color: var(--ok); }
 .faltou { background: var(--warn-bg); color: var(--warn); }
+
+/* Padrão da listagem de pacientes: busca e filtros pela URL */
+.toolbar form,
+form.toolbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.botaoBusca {
+  height: 40px;
+  padding: 0 18px;
+  border: 1px solid var(--soft);
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--brand-primary);
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.limpar {
+  font-size: 13px;
+  color: var(--brand-primary);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.chip { text-decoration: none; }
+.filters { margin-left: auto; }
+.table tbody tr:hover { background: var(--soft); }
+
+/* Coluna de ações */
+.table th.colunaAcoes { text-align: right; }
+.acoesCelula { text-align: right; }
+.acoesCelula { white-space: nowrap; }
+
+.icone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--soft);
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--brand-primary);
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.icone:hover { background: var(--soft); }
+.icone + .icone { margin-left: 8px; }
+.iconeExcluir:hover { color: #c0392b; }
+
+/* Diálogo de confirmação de exclusão */
+.dialog {
+  width: min(440px, calc(100vw - 32px));
+  padding: 28px;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--text);
+  text-align: left;
+  white-space: normal;
+}
+
+.dialog::backdrop { background: rgba(43, 22, 34, 0.45); }
+.dialogTitulo { font-size: 19px; margin-bottom: 12px; color: var(--brand-primary); }
+.dialog p { font-size: 14px; line-height: 1.5; }
+.dialogAviso { margin-top: 8px; color: var(--muted); }
+.dialogAcoes { display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px; }
+
+.botaoSecundario {
+  height: 40px;
+  padding: 0 20px;
+  border: 1px solid var(--soft);
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--brand-primary);
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.botaoPerigo {
+  height: 40px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 8px;
+  background: #c0392b;
+  color: var(--white);
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+}
