@@ -1,0 +1,12 @@
+.header { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 24px; }
+.eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: var(--brand-primary); margin-bottom: 6px; }
+.primary { height: 40px; padding: 0 20px; border-radius: 8px; display: inline-flex; align-items: center; background: var(--brand-primary); color: var(--white); font-weight: 700; font-size: 13px; }
+.filters { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+.chip { height: 32px; padding: 0 16px; border-radius: 16px; display: inline-flex; align-items: center; background: var(--white); color: var(--muted); font-size: 13px; font-weight: 500; }
+.chipOn { background: var(--brand-primary); color: var(--white); font-weight: 700; }
+.table { width: 100%; border-collapse: collapse; background: var(--white); border-radius: var(--radius); overflow: hidden; }
+.table th { text-align: left; padding: 16px 24px; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; color: var(--brand-primary); border-bottom: 1px solid var(--soft); }
+.table td { padding: 14px 24px; font-size: 14px; border-bottom: 1px solid var(--soft); }
+.table tbody tr:nth-child(even) { background: var(--cream); }
+.pill { display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 12px; font-size: 11px; font-weight: 700; background: var(--ok-bg); color: var(--ok); }
+.vazio { padding: 32px 24px; color: var(--muted); font-size: 14px; background: var(--white); border-radius: var(--radius); }

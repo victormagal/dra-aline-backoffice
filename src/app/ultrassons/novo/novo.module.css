@@ -1,0 +1,100 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--brand-primary);
+  margin-bottom: 6px;
+}
+
+.actions { display: flex; gap: 12px; }
+
+.primary,
+.secondary {
+  height: 40px;
+  padding: 0 20px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.primary { border: 0; background: var(--brand-primary); color: var(--white); }
+.secondary { border: 1px solid var(--soft); background: var(--white); color: var(--brand-primary); }
+
+.form { display: flex; flex-direction: column; gap: 24px; }
+
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sectionTitle { font-size: 19px; }
+
+/* Duas colunas de 5 colunas do grid cada (calha de 24 px) */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--gutter);
+  row-gap: 16px;
+}
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+
+.label { font-size: 13px; color: var(--muted); }
+
+.input {
+  height: 44px;
+  padding: 0 14px;
+  border: 1px solid #e3d6dc;
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--text);
+}
+
+select.input {
+  appearance: none;
+  padding-right: 44px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none' stroke='%237a6471' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 18px center;
+  background-size: 12px 8px;
+  cursor: pointer;
+}
+
+.input[aria-invalid='true'] { border-color: #c0392b; }
+
+.error { font-size: 12px; color: #c0392b; }
+
+.hint { font-size: 12px; color: var(--muted); }
+
+.submit {
+  align-self: flex-end;
+  height: 44px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--brand-primary);
+  color: var(--white);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.submit:disabled { opacity: 0.6; cursor: wait; }
+
+.status { font-size: 13px; color: var(--ok); }
+
+.readonly { height: 44px; padding: 0 14px; border-radius: 8px; background: var(--soft); color: var(--brand-primary); font-weight: 700; display: flex; align-items: center; }

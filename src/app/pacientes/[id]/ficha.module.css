@@ -1,0 +1,34 @@
+.header { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 24px; }
+.breadcrumb { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+.sub { font-size: 14px; color: var(--muted); margin-top: 6px; display: flex; gap: 12px; align-items: center; }
+.actions { display: flex; gap: 12px; }
+.secondary, .primary { height: 40px; padding: 0 18px; border-radius: 8px; display: inline-flex; align-items: center; font-weight: 700; font-size: 13px; }
+.secondary { border: 1px solid var(--soft); background: var(--white); color: var(--brand-primary); }
+.primary { border: 0; background: var(--brand-primary); color: var(--white); }
+.pill { display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 12px; font-size: 11px; font-weight: 700; }
+.ok { background: var(--ok-bg); color: var(--ok); }
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--soft); margin-bottom: 24px; }
+.tab { padding: 10px 16px; font-size: 14px; color: var(--muted); font-weight: 500; }
+.tabOn { color: var(--brand-primary); font-weight: 700; border-bottom: 2px solid var(--brand-primary); }
+/* Colunas: esquerda 7 colunas, direita 3 colunas (calha de 24 px) */
+.body { display: grid; grid-template-columns: 783.33px 322px; column-gap: var(--gutter); align-items: start; }
+.col { display: flex; flex-direction: column; gap: 24px; }
+.card { background: var(--white); border-radius: var(--radius); padding: 24px; display: flex; flex-direction: column; gap: 14px; }
+.cardTitle { font-size: 19px; }
+.eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: var(--brand-primary); }
+.kv { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px; }
+.kv dt { font-size: 12px; color: var(--muted); }
+.kv dd { margin: 2px 0 0; font-size: 14px; font-weight: 500; }
+.tiles { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.tile { background: var(--cream); border-radius: 12px; padding: 14px; text-align: center; }
+.tileValor { font-family: var(--font-serif), Georgia, serif; font-size: 28px; font-weight: 700; color: var(--brand-primary); }
+.tileRotulo { font-size: 11px; color: var(--muted); font-weight: 700; letter-spacing: 0.06em; }
+.lista { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; }
+.lista li { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--soft); font-size: 14px; }
+.lista li:last-child { border-bottom: 0; }
+.muted { color: var(--muted); }
+.linkBtn { background: none; border: 0; color: var(--brand-primary); font-weight: 700; font-size: 13px; cursor: pointer; padding: 0; }
+.alerta { background: var(--warn-bg); color: var(--warn); }
+.neutro { background: var(--soft); color: var(--brand-primary); }
+.botaoLargo { height: 40px; border-radius: 8px; border: 1px solid var(--soft); background: var(--white); color: var(--brand-primary); font-weight: 700; font-size: 13px; cursor: pointer; }
+.vazio { font-size: 14px; color: var(--muted); }
