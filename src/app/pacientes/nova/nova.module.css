@@ -97,8 +97,8 @@ select.input {
 
 .status { font-size: 13px; color: var(--ok); }
 
-.rowRemove { background: none; border: 0; color: var(--muted); font-size: 13px; cursor: pointer; text-decoration: underline; justify-self: start; }
+.rowRemove { height: 44px; margin-top: 24px; display: flex; align-items: center; background: none; border: 0; color: var(--muted); font-size: 13px; cursor: pointer; text-decoration: underline; justify-self: start; }
 .secaoAdicionar { background: none; border: 1px dashed #d8c4cd; border-radius: 8px; padding: 10px 14px; color: var(--brand-primary); font-weight: 700; cursor: pointer; justify-self: start; }
 .dpp { height: 44px; padding: 0 14px; border-radius: 8px; background: var(--soft); color: var(--brand-primary); font-weight: 700; display: flex; align-items: center; }
-.gestacao { display: grid; grid-template-columns: 1fr 1fr auto; gap: 16px; align-items: end; }
+.gestacao { display: grid; grid-template-columns: 1fr 1fr auto; gap: 16px; align-items: start; }
 .radios { display: flex; gap: 16px; font-size: 14px; }

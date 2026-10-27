@@ -1,10 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { useFieldArray, useForm, useWatch } from 'react-hook-form';
+import { Controller, useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { desfechos, FORM_NOVA_PACIENTE } from '../../../lib/pacientes.data';
-import { calcularDpp, pacienteSchema, type PacienteInput, type PacienteValues } from '../../../lib/pacientes.schema';
+import { calcularDpp, mascaraCpf, mascaraData, mascaraTelefone, pacienteSchema, type PacienteInput, type PacienteValues } from '../../../lib/pacientes.schema';
 import styles from './nova.module.css';
 
 const estadosCivis = ['Solteira', 'Casada', 'União estável', 'Divorciada', 'Viúva'];
@@ -19,6 +19,8 @@ export default function NovaPacienteForm() {
     formState: { errors, isSubmitting },
   } = useForm<PacienteInput, unknown, PacienteValues>({
     resolver: zodResolver(pacienteSchema),
+    mode: 'onBlur',
+    reValidateMode: 'onBlur',
     defaultValues: {
       nome: '', cpf: '', nascimento: '', telefone: '', email: '', profissao: '', estadoCivil: '',
       contatoNome: '', contatoParentesco: '', contatoTelefone: '',
@@ -37,7 +39,6 @@ export default function NovaPacienteForm() {
 
   async function onSubmit() {
     setMensagem(null);
-    // Simulação: a gravação entra quando a API existir.
     await new Promise((r) => setTimeout(r, 300));
     setMensagem('Paciente cadastrada (simulação).');
   }
@@ -51,19 +52,62 @@ export default function NovaPacienteForm() {
             <input className={styles.input} placeholder="Nome da paciente" aria-invalid={!!errors.nome} {...register('nome')} />
           </Field>
           <Field label="CPF" error={errors.cpf?.message}>
-            <input className={styles.input} placeholder="000.000.000-00" aria-invalid={!!errors.cpf} {...register('cpf')} />
+            <Controller
+              name="cpf"
+              control={control}
+              render={({ field }) => (
+                <input
+                  {...field}
+                  inputMode="numeric"
+                  className={styles.input}
+                  placeholder="000.000.000-00"
+                  aria-invalid={!!errors.cpf}
+                  value={field.value}
+                  onChange={(e) => field.onChange(mascaraCpf(e.target.value))}
+                />
+              )}
+            />
           </Field>
           <Field label="Data de nascimento" error={errors.nascimento?.message}>
-            <input type="date" className={styles.input} aria-invalid={!!errors.nascimento} {...register('nascimento')} />
+            <Controller
+              name="nascimento"
+              control={control}
+              render={({ field }) => (
+                <input
+                  {...field}
+                  type="text"
+                  inputMode="numeric"
+                  className={styles.input}
+                  placeholder="dd/mm/aaaa"
+                  aria-invalid={!!errors.nascimento}
+                  value={field.value}
+                  onChange={(e) => field.onChange(mascaraData(e.target.value))}
+                />
+              )}
+            />
           </Field>
           <Field label="Telefone" error={errors.telefone?.message}>
-            <input className={styles.input} placeholder="(61) 00000-0000" aria-invalid={!!errors.telefone} {...register('telefone')} />
+            <Controller
+              name="telefone"
+              control={control}
+              render={({ field }) => (
+                <input
+                  {...field}
+                  inputMode="numeric"
+                  className={styles.input}
+                  placeholder="(61) 00000-0000"
+                  aria-invalid={!!errors.telefone}
+                  value={field.value}
+                  onChange={(e) => field.onChange(mascaraTelefone(e.target.value))}
+                />
+              )}
+            />
           </Field>
           <Field label="E-mail" error={errors.email?.message}>
             <input type="email" className={styles.input} placeholder="paciente@exemplo.com" aria-invalid={!!errors.email} {...register('email')} />
           </Field>
           <Field label="Profissão" error={errors.profissao?.message}>
-            <input className={styles.input} placeholder="ex.: professora" {...register('profissao')} />
+            <input className={styles.input} placeholder="Médica" {...register('profissao')} />
           </Field>
           <Field label="Estado civil" error={errors.estadoCivil?.message}>
             <select className={styles.input} {...register('estadoCivil')}>
@@ -81,10 +125,24 @@ export default function NovaPacienteForm() {
             <input className={styles.input} placeholder="Nome do contato" aria-invalid={!!errors.contatoNome} {...register('contatoNome')} />
           </Field>
           <Field label="Parentesco" error={errors.contatoParentesco?.message}>
-            <input className={styles.input} placeholder="ex.: marido" {...register('contatoParentesco')} />
+            <input className={styles.input} placeholder="Cônjuge" {...register('contatoParentesco')} />
           </Field>
           <Field label="Telefone do contato" error={errors.contatoTelefone?.message}>
-            <input className={styles.input} placeholder="(61) 00000-0000" aria-invalid={!!errors.contatoTelefone} {...register('contatoTelefone')} />
+            <Controller
+              name="contatoTelefone"
+              control={control}
+              render={({ field }) => (
+                <input
+                  {...field}
+                  inputMode="numeric"
+                  className={styles.input}
+                  placeholder="(61) 00000-0000"
+                  aria-invalid={!!errors.contatoTelefone}
+                  value={field.value}
+                  onChange={(e) => field.onChange(mascaraTelefone(e.target.value))}
+                />
+              )}
+            />
           </Field>
         </div>
       </section>
@@ -98,12 +156,42 @@ export default function NovaPacienteForm() {
         <div className={styles.grid}>
           {referencia === 'dum' ? (
             <Field label="Data da DUM" error={errors.dum?.message}>
-              <input type="date" className={styles.input} aria-invalid={!!errors.dum} {...register('dum')} />
+              <Controller
+                name="dum"
+                control={control}
+                render={({ field }) => (
+                  <input
+                    {...field}
+                    type="text"
+                    inputMode="numeric"
+                    className={styles.input}
+                    placeholder="dd/mm/aaaa"
+                    aria-invalid={!!errors.dum}
+                    value={field.value}
+                    onChange={(e) => field.onChange(mascaraData(e.target.value))}
+                  />
+                )}
+              />
             </Field>
           ) : (
             <>
               <Field label="Data do USG" error={errors.usgData?.message}>
-                <input type="date" className={styles.input} aria-invalid={!!errors.usgData} {...register('usgData')} />
+                <Controller
+                  name="usgData"
+                  control={control}
+                  render={({ field }) => (
+                    <input
+                      {...field}
+                      type="text"
+                      inputMode="numeric"
+                      className={styles.input}
+                      placeholder="dd/mm/aaaa"
+                      aria-invalid={!!errors.usgData}
+                      value={field.value}
+                      onChange={(e) => field.onChange(mascaraData(e.target.value))}
+                    />
+                  )}
+                />
               </Field>
               <Field label="Idade gestacional na data (dias)" error={errors.usgIdadeDias?.message}>
                 <input type="number" min={0} max={300} className={styles.input} aria-invalid={!!errors.usgIdadeDias} {...register('usgIdadeDias')} />
@@ -129,12 +217,12 @@ export default function NovaPacienteForm() {
               </select>
             </Field>
             <Field label="Bebês" error={errors.gestacoesAnteriores?.[index]?.bebes?.message}>
-              <input type="number" min={0} max={10} className={styles.input} {...register(`gestacoesAnteriores.${index}.bebes`)} />
+              <input type="number" min={1} max={5} className={styles.input} aria-invalid={!!errors.gestacoesAnteriores?.[index]?.bebes} {...register(`gestacoesAnteriores.${index}.bebes`)} />
             </Field>
             <button type="button" className={styles.rowRemove} onClick={() => remove(index)}>Remover</button>
           </div>
         ))}
-        <button type="button" className={styles.secaoAdicionar} onClick={() => append({ desfecho: '', bebes: 1 })}>
+        <button type="button" className={styles.secaoAdicionar} onClick={() => append({ desfecho: '', bebes: '' })}>
           + Adicionar gestação anterior
         </button>
       </section>
