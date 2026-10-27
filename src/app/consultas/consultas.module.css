@@ -28,10 +28,36 @@
   cursor: pointer;
 }
 
+.toolbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.search {
+  height: 40px;
+  width: 320px;
+  padding: 0 14px;
+  border: 1px solid #e3d6dc;
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--text);
+}
+
 .filters {
   display: flex;
   gap: 8px;
-  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.vazio {
+  padding: 32px 24px;
+  color: var(--muted);
+  font-size: 14px;
+  background: var(--white);
+  border-radius: var(--radius);
 }
 
 .chip {

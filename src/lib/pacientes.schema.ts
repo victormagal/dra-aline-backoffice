@@ -57,7 +57,7 @@ export function paraIso(valor: string): string | null {
   return `${aaaa}-${mm}-${dd}`;
 }
 
-const dataBr = (vazia: string) =>
+export const dataBr = (vazia: string) =>
   z.string().min(1, vazia).refine((v) => paraIso(v) !== null, 'Data inválida (use dd/mm/aaaa)');
 
 export const pacienteSchema = z

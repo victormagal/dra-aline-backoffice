@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   FORM_ID,
@@ -11,7 +11,8 @@ import {
   profissionais,
   tiposAtendimento,
 } from '../../../lib/agendamento.data';
-import { agendamentoSchema, type AgendamentoInput, type AgendamentoValues } from '../../../lib/agendamento.schema';
+import { agendamentoSchema, mascaraHorario, type AgendamentoInput, type AgendamentoValues } from '../../../lib/agendamento.schema';
+import { mascaraData, paraIso } from '../../../lib/pacientes.schema';
 import styles from './novo.module.css';
 
 export default function AgendamentoForm() {
@@ -19,25 +20,29 @@ export default function AgendamentoForm() {
 
   const {
     register,
+    control,
     handleSubmit,
     setError,
     formState: { errors, isSubmitting },
   } = useForm<AgendamentoInput, unknown, AgendamentoValues>({
+    mode: 'onBlur',
+    reValidateMode: 'onBlur',
     resolver: zodResolver(agendamentoSchema),
     defaultValues: {
       paciente: '',
-      tipo: 'Consulta pré-natal',
+      tipo: '',
       profissional: 'Dra. Aline Magalhães',
-      data: '2026-10-27',
+      data: '27/10/2026',
       horario: '09:00',
-      duracao: '30',
+      duracao: '',
     },
   });
 
   async function onSubmit(values: AgendamentoValues) {
     setMensagem(null);
+    const dataIso = paraIso(values.data);
     const ocupado = horariosOcupados.some(
-      (h) => h.data === values.data && h.horario === values.horario && h.profissional === values.profissional,
+      (h) => h.data === dataIso && h.horario === values.horario && h.profissional === values.profissional,
     );
     if (ocupado) {
       setError('horario', { message: 'Este horário já está ocupado para a profissional' });
@@ -55,14 +60,15 @@ export default function AgendamentoForm() {
         <div className={styles.grid}>
           <Field label="Paciente" error={errors.paciente?.message}>
             <select className={styles.input} aria-invalid={!!errors.paciente} {...register('paciente')}>
-              <option value="">Buscar por nome ou CPF</option>
+              <option value="">Selecione a paciente</option>
               {pacientes.map((p) => (
-                <option key={p.id} value={p.id}>{p.nome} · {p.cpf}</option>
+                <option key={p.id} value={p.id}>{p.nome}</option>
               ))}
             </select>
           </Field>
           <Field label="Tipo de atendimento" error={errors.tipo?.message}>
             <select className={styles.input} aria-invalid={!!errors.tipo} {...register('tipo')}>
+              <option value="">Selecione o tipo</option>
               {tiposAtendimento.map((t) => <option key={t} value={t}>{t}</option>)}
             </select>
           </Field>
@@ -78,13 +84,42 @@ export default function AgendamentoForm() {
         <h2 id="sec-data" className={styles.sectionTitle}>Data e horário</h2>
         <div className={styles.grid}>
           <Field label="Data" error={errors.data?.message}>
-            <input type="date" className={styles.input} aria-invalid={!!errors.data} {...register('data')} />
+            <Controller
+              name="data"
+              control={control}
+              render={({ field }) => (
+                <input
+                  {...field}
+                  type="text"
+                  inputMode="numeric"
+                  className={styles.input}
+                  placeholder="dd/mm/aaaa"
+                  aria-invalid={!!errors.data}
+                  onChange={(e) => field.onChange(mascaraData(e.target.value))}
+                />
+              )}
+            />
           </Field>
           <Field label="Horário" error={errors.horario?.message}>
-            <input type="time" className={styles.input} aria-invalid={!!errors.horario} {...register('horario')} />
+            <Controller
+              name="horario"
+              control={control}
+              render={({ field }) => (
+                <input
+                  {...field}
+                  type="text"
+                  inputMode="numeric"
+                  className={styles.input}
+                  placeholder="HH:mm"
+                  aria-invalid={!!errors.horario}
+                  onChange={(e) => field.onChange(mascaraHorario(e.target.value))}
+                />
+              )}
+            />
           </Field>
           <Field label="Duração" error={errors.duracao?.message}>
             <select className={styles.input} aria-invalid={!!errors.duracao} {...register('duracao')}>
+              <option value="">Selecione a duração</option>
               {duracoes.map((d) => <option key={d.valor} value={d.valor}>{d.rotulo}</option>)}
             </select>
           </Field>

@@ -3,12 +3,10 @@
 import { useDeferredValue, useMemo, useState, type ReactNode } from 'react';
 import Link from 'next/link';
 import type { PacienteResumo } from '../../lib/pacientes.data';
+import { normalizar } from '../../lib/texto';
 import styles from './pacientes.module.css';
 
 const colunas = ['PACIENTE', 'SITUAÇÃO', 'IG / PÓS-PARTO', 'PRÓXIMA CONSULTA', 'ACESSO'];
-
-const normalizar = (texto: string) =>
-  texto.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase().trim();
 
 type Props = { pacientes: PacienteResumo[]; children: ReactNode };
 

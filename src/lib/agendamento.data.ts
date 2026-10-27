@@ -1,8 +1,8 @@
 // Dados de exemplo para o formulário de agendamento. Serão substituídos pela API/banco.
 export const pacientes = [
-  { id: 'p1', nome: 'Patrícia Regina B. Moura', cpf: '123.456.789-00' },
-  { id: 'p2', nome: 'Paciente 2', cpf: '987.654.321-00' },
-  { id: 'p3', nome: 'Paciente 3', cpf: '456.789.123-00' },
+  { id: 'p1', nome: 'Patrícia Regina B. Moura' },
+  { id: 'p2', nome: 'Paciente 2' },
+  { id: 'p3', nome: 'Paciente 3' },
 ];
 
 export const tiposAtendimento = [

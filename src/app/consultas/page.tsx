@@ -1,48 +1,39 @@
 import Link from 'next/link';
-import { consultasDoDia, statusRotulo } from '../../lib/consultas.data';
+import { consultas, filtrosConsultas } from '../../lib/consultas.data';
+import { ConsultasLista } from './consultas-lista';
 import styles from './consultas.module.css';
 
-const colunas = ['HORÁRIO', 'PACIENTE', 'TIPO', 'IG', 'STATUS', 'NOTA CLÍNICA'];
+type Props = { searchParams: Promise<{ filtro?: string }> };
 
-export default function ConsultasPage() {
+export default async function ConsultasPage({ searchParams }: Props) {
+  const { filtro: slug = 'hoje' } = await searchParams;
+  const filtro = filtrosConsultas.find((f) => f.slug === slug) ?? filtrosConsultas[0];
+  const hoje = new Date();
+  const lista = consultas.filter((c) => filtro.aplica(c, hoje));
+
   return (
     <>
       <header className={styles.header}>
         <div>
-          <p className={styles.eyebrow}>AGENDA DO DIA</p>
+          <p className={styles.eyebrow}>AGENDA</p>
           <h1>Consultas</h1>
         </div>
         <Link href="/consultas/novo" className={styles.primary}>Novo agendamento</Link>
       </header>
 
-      <div className={styles.filters} role="group" aria-label="Filtros">
-        <span className={`${styles.chip} ${styles.chipOn}`}>Hoje · {consultasDoDia.length}</span>
-        <span className={styles.chip}>Próximos 7 dias</span>
-        <span className={styles.chip}>Realizadas</span>
-        <span className={styles.chip}>Faltas</span>
-      </div>
-
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            {colunas.map((c) => (
-              <th key={c} scope="col">{c}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {consultasDoDia.map((c) => (
-            <tr key={c.id}>
-              <td>{c.horario}</td>
-              <td>{c.paciente}</td>
-              <td>{c.tipo}</td>
-              <td>{c.ig}</td>
-              <td><span className={`${styles.pill} ${styles[c.status]}`}>{statusRotulo[c.status]}</span></td>
-              <td>{c.nota}</td>
-            </tr>
+      <ConsultasLista consultas={lista}>
+        <div role="group" aria-label="Filtrar consultas" className={styles.filters}>
+          {filtrosConsultas.map((f) => (
+            <Link
+              key={f.slug}
+              href={f.slug === 'hoje' ? '/consultas' : `/consultas?filtro=${f.slug}`}
+              className={`${styles.chip} ${f.slug === filtro.slug ? styles.chipOn : ''}`}
+            >
+              {f.rotulo} · {consultas.filter((c) => f.aplica(c, hoje)).length}
+            </Link>
           ))}
-        </tbody>
-      </table>
+        </div>
+      </ConsultasLista>
     </>
   );
 }
