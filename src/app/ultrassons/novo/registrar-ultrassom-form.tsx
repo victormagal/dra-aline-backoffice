@@ -26,15 +26,17 @@ export default function RegistrarUltrassomForm() {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<UltrassomInput, unknown, UltrassomValues>({
+    mode: 'onBlur',
+    reValidateMode: 'onBlur',
     resolver: zodResolver(ultrassomSchema),
     defaultValues: {
-      paciente: 'p1',
-      agendamento: 'a1',
-      tipo: 'Obstétrico',
-      apresentacao: 'Cefálica',
-      placenta: 'Anterior',
-      liquido: 'Normal',
-      bcf: '142',
+      paciente: '',
+      agendamento: '',
+      tipo: '',
+      apresentacao: '',
+      placenta: '',
+      liquido: '',
+      bcf: '',
       laudo: '',
     },
   });
@@ -53,17 +55,19 @@ export default function RegistrarUltrassomForm() {
         <div className={styles.grid}>
           <Field label="Paciente" error={errors.paciente?.message}>
             <select className={styles.input} aria-invalid={!!errors.paciente} {...register('paciente')}>
+              <option value="">Selecione a paciente</option>
               {pacientesUltrassom.map((p) => <option key={p.id} value={p.id}>{p.nome}</option>)}
             </select>
           </Field>
           <Field label="Agendamento vinculado" error={errors.agendamento?.message}>
-            <select className={styles.input} {...register('agendamento')}>
-              <option value="">Nenhum</option>
+            <select className={styles.input} aria-invalid={!!errors.agendamento} {...register('agendamento')}>
+              <option value="">Selecione o agendamento</option>
               {agendamentosVinculo.map((a) => <option key={a.id} value={a.id}>{a.rotulo}</option>)}
             </select>
           </Field>
           <Field label="Tipo" error={errors.tipo?.message}>
             <select className={styles.input} aria-invalid={!!errors.tipo} {...register('tipo')}>
+              <option value="">Selecione o tipo</option>
               {tiposUltrassom.map((t) => <option key={t} value={t}>{t}</option>)}
             </select>
           </Field>
@@ -78,21 +82,24 @@ export default function RegistrarUltrassomForm() {
         <div className={styles.grid}>
           <Field label="Apresentação" error={errors.apresentacao?.message}>
             <select className={styles.input} aria-invalid={!!errors.apresentacao} {...register('apresentacao')}>
+              <option value="">Selecione a apresentação</option>
               {apresentacoes.map((a) => <option key={a} value={a}>{a}</option>)}
             </select>
           </Field>
           <Field label="Placenta" error={errors.placenta?.message}>
             <select className={styles.input} aria-invalid={!!errors.placenta} {...register('placenta')}>
+              <option value="">Selecione a placenta</option>
               {placentas.map((p) => <option key={p} value={p}>{p}</option>)}
             </select>
           </Field>
           <Field label="Líquido amniótico" error={errors.liquido?.message}>
             <select className={styles.input} aria-invalid={!!errors.liquido} {...register('liquido')}>
+              <option value="">Selecione o líquido</option>
               {liquidos.map((l) => <option key={l} value={l}>{l}</option>)}
             </select>
           </Field>
           <Field label="BCF (bpm)" error={errors.bcf?.message}>
-            <input inputMode="numeric" className={styles.input} aria-invalid={!!errors.bcf} {...register('bcf')} />
+            <input inputMode="numeric" placeholder="0 a 300" className={styles.input} aria-invalid={!!errors.bcf} {...register('bcf')} />
           </Field>
         </div>
       </section>
@@ -104,7 +111,7 @@ export default function RegistrarUltrassomForm() {
             rows={8}
             className={styles.input}
             style={{ height: 'auto', padding: '12px 14px' }}
-            placeholder="Descreva os achados do exame"
+            placeholder="Descreva os achados do exame (opcional, entre 10 e 1000 caracteres)"
             aria-invalid={!!errors.laudo}
             {...register('laudo')}
           />

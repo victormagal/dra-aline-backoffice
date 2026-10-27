@@ -1,8 +1,7 @@
 import Link from 'next/link';
 import { filtrosUltrassom, ultrassons } from '../../lib/ultrassons.data';
+import { UltrassonsLista } from './ultrassons-lista';
 import styles from './ultrassons.module.css';
-
-const colunas = ['DATA', 'PACIENTE', 'IG', 'TIPO', 'APRESENTAÇÃO', 'BCF', 'LAUDO'];
 
 type Props = { searchParams: Promise<{ tipo?: string }> };
 
@@ -21,40 +20,19 @@ export default async function UltrassonsPage({ searchParams }: Props) {
         <Link href="/ultrassons/novo" className={styles.primary}>Registrar ultrassom</Link>
       </header>
 
-      <div className={styles.filters} role="group" aria-label="Filtrar por tipo">
-        {filtrosUltrassom.map((f) => (
-          <Link
-            key={f.slug}
-            href={f.slug === 'todos' ? '/ultrassons' : `/ultrassons?tipo=${f.slug}`}
-            className={`${styles.chip} ${f.slug === filtro.slug ? styles.chipOn : ''}`}
-          >
-            {f.rotulo}
-          </Link>
-        ))}
-      </div>
-
-      {lista.length === 0 ? (
-        <p className={styles.vazio}>Nenhum ultrassom deste tipo.</p>
-      ) : (
-        <table className={styles.table}>
-          <thead>
-            <tr>{colunas.map((c) => <th key={c} scope="col">{c}</th>)}</tr>
-          </thead>
-          <tbody>
-            {lista.map((u) => (
-              <tr key={u.id}>
-                <td>{u.data}</td>
-                <td>{u.paciente}</td>
-                <td>{u.ig}</td>
-                <td>{u.tipo}</td>
-                <td>{u.apresentacao}</td>
-                <td>{u.bcf}</td>
-                <td><span className={styles.pill}>Assinado</span></td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+      <UltrassonsLista ultrassons={lista}>
+        <div className={styles.filters} role="group" aria-label="Filtrar por tipo">
+          {filtrosUltrassom.map((f) => (
+            <Link
+              key={f.slug}
+              href={f.slug === 'todos' ? '/ultrassons' : `/ultrassons?tipo=${f.slug}`}
+              className={`${styles.chip} ${f.slug === filtro.slug ? styles.chipOn : ''}`}
+            >
+              {f.rotulo}
+            </Link>
+          ))}
+        </div>
+      </UltrassonsLista>
     </>
   );
 }

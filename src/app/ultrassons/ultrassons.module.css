@@ -1,7 +1,9 @@
 .header { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 24px; }
 .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: var(--brand-primary); margin-bottom: 6px; }
 .primary { height: 40px; padding: 0 20px; border-radius: 8px; display: inline-flex; align-items: center; background: var(--brand-primary); color: var(--white); font-weight: 700; font-size: 13px; }
-.filters { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+.toolbar { display: flex; gap: 12px; align-items: center; margin-bottom: 24px; flex-wrap: wrap; }
+.search { height: 40px; width: 320px; padding: 0 14px; border: 1px solid #e3d6dc; border-radius: 8px; background: var(--white); color: var(--text); }
+.filters { display: flex; gap: 8px; flex-wrap: wrap; }
 .chip { height: 32px; padding: 0 16px; border-radius: 16px; display: inline-flex; align-items: center; background: var(--white); color: var(--muted); font-size: 13px; font-weight: 500; }
 .chipOn { background: var(--brand-primary); color: var(--white); font-weight: 700; }
 .table { width: 100%; border-collapse: collapse; background: var(--white); border-radius: var(--radius); overflow: hidden; }

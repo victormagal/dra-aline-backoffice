@@ -1,19 +1,30 @@
 import { z } from 'zod';
 import { apresentacoes, liquidos, placentas, tiposUltrassom } from './ultrassons.data';
 
+const opcaoObrigatoria = (opcoes: readonly string[], mensagem: string) =>
+  z.string().refine((v) => opcoes.includes(v), mensagem);
+
 const bcf = z
   .string()
-  .refine((v) => v === '' || (/^\d+$/.test(v) && Number(v) >= 100 && Number(v) <= 220), 'BCF entre 100 e 220 bpm');
+  .min(1, 'Informe o BCF')
+  .regex(/^\d+$/, 'Informe apenas números')
+  .refine((v) => Number(v) <= 300, 'BCF entre 0 e 300 bpm');
+
+const laudo = z
+  .string()
+  .trim()
+  .max(1000, 'Máximo de 1000 caracteres')
+  .refine((v) => v === '' || v.length >= 10, 'Mínimo de 10 caracteres');
 
 export const ultrassomSchema = z.object({
   paciente: z.string().min(1, 'Selecione a paciente'),
-  agendamento: z.string(),
-  tipo: z.enum(tiposUltrassom, { error: 'Selecione o tipo de exame' }),
-  apresentacao: z.enum(apresentacoes, { error: 'Selecione a apresentação' }),
-  placenta: z.enum(placentas, { error: 'Selecione a placenta' }),
-  liquido: z.enum(liquidos, { error: 'Selecione o líquido amniótico' }),
+  agendamento: z.string().min(1, 'Selecione o agendamento vinculado'),
+  tipo: opcaoObrigatoria(tiposUltrassom, 'Selecione o tipo de exame'),
+  apresentacao: opcaoObrigatoria(apresentacoes, 'Selecione a apresentação'),
+  placenta: opcaoObrigatoria(placentas, 'Selecione a placenta'),
+  liquido: opcaoObrigatoria(liquidos, 'Selecione o líquido amniótico'),
   bcf,
-  laudo: z.string().trim().min(10, 'Descreva os achados do exame (mín. 10 caracteres)'),
+  laudo,
 });
 
 export type UltrassomInput = z.input<typeof ultrassomSchema>;

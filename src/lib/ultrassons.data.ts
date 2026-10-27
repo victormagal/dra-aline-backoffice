@@ -33,9 +33,9 @@ export const filtrosUltrassom = [
 
 // Agendamentos disponíveis para vincular ao ultrassom
 export const agendamentosVinculo = [
-  { id: 'a1', pacienteId: 'p1', rotulo: 'Consulta · 27/10 às 09:00' },
+  { id: 'a1', pacienteId: 'p1', rotulo: 'Consulta · 27/10/2026 às 09:00' },
 ];
 
-export const pacientesUltrassom = [{ id: 'p1', nome: 'Patrícia' }];
+export const pacientesUltrassom = [{ id: 'p1', nome: 'Patrícia Regina B. Moura' }];
 
 export const FORM_REGISTRAR_ULTRASSOM = 'registrar-ultrassom-form';
