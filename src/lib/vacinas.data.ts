@@ -35,3 +35,20 @@ export const pacientesVacina = [{ id: 'p1', nome: 'Patrícia Regina B. Moura' }]
 export const statusAplicacao = ['Aplicada', 'Agendada', 'Recusada'] as const;
 
 export const FORM_NOVA_VACINA = 'nova-vacina-form';
+
+// Registros de vacinas por paciente (vacina_registro). "Recusada" exige observação.
+export type RegistroVacina = {
+  id: string;
+  pacienteId: string;
+  vacina: string;
+  status: 'Aplicada' | 'Pendente' | 'Recusada';
+  data: string;
+  observacao: string;
+};
+
+export const registrosVacina: RegistroVacina[] = [
+  { id: 'r1', pacienteId: 'p1', vacina: 'DTpa', status: 'Aplicada', data: '24/08/2026', observacao: 'Aplicada entre 28 e 36 semanas' },
+  { id: 'r2', pacienteId: 'p1', vacina: 'Hepatite B', status: 'Pendente', data: '—', observacao: '—' },
+  { id: 'r3', pacienteId: 'p1', vacina: 'Influenza', status: 'Recusada', data: '—', observacao: 'Recusa registrada na consulta de 27/08/2026' },
+  { id: 'r4', pacienteId: 'p1', vacina: 'COVID-19', status: 'Recusada', data: '—', observacao: 'Recusa registrada na consulta de 27/08/2026' },
+];

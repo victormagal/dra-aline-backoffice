@@ -31,7 +31,7 @@
 .primary { border: 0; background: var(--brand-primary); color: var(--white); }
 .secondary { border: 1px solid var(--soft); background: var(--white); color: var(--brand-primary); }
 
-.form { display: flex; flex-direction: column; gap: 24px; }
+.form { display: flex; flex-direction: column; gap: 24px; padding-bottom: 48px; }
 
 .card {
   background: var(--white);
@@ -100,5 +100,26 @@ select.input {
 .rowRemove { height: 44px; margin-top: 24px; display: flex; align-items: center; background: none; border: 0; color: var(--muted); font-size: 13px; cursor: pointer; text-decoration: underline; justify-self: start; }
 .secaoAdicionar { background: none; border: 1px dashed #d8c4cd; border-radius: 8px; padding: 10px 14px; color: var(--brand-primary); font-weight: 700; cursor: pointer; justify-self: start; }
 .dpp { height: 44px; padding: 0 14px; border-radius: 8px; background: var(--soft); color: var(--brand-primary); font-weight: 700; display: flex; align-items: center; }
-.gestacao { display: grid; grid-template-columns: 1fr 1fr auto; gap: 16px; align-items: start; }
 .radios { display: flex; gap: 16px; font-size: 14px; }
+
+.check { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--text); height: 44px; }
+.linhaCheck { align-self: end; }
+.subsection { font-size: 14px; font-weight: 700; color: var(--brand-primary); margin-top: 8px; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: var(--gutter); row-gap: 16px; align-items: start; }
+
+/* Contato de emergência: campos e botão Remover numa única linha, alinhados pela base */
+.linhaContato { display: grid; grid-template-columns: 1fr 1fr 1fr auto; column-gap: var(--gutter); row-gap: 16px; align-items: end; }
+.remover { height: 44px; padding: 0 4px; margin: 0; border: 0; background: none; color: var(--muted); font-size: 13px; text-decoration: underline; cursor: pointer; }
+
+/* Histórico obstétrico: uma gestação por bloco.
+   Linha 1: desfecho e tipo de gemelaridade largos; bebês, ano e semanas estreitos.
+   Linha 2: intercorrências e observações, metade do bloco cada.
+   Erros ficam flutuando embaixo do campo, sem empurrar o alinhamento. */
+.gestacao { display: flex; flex-direction: column; gap: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--soft); }
+.linhaHistorico1 { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 2fr); column-gap: var(--gutter); row-gap: 32px; align-items: end; }
+.linhaHistorico2 { display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--gutter); row-gap: 32px; align-items: start; }
+.linhaHistorico1 .field, .linhaHistorico2 .field { position: relative; }
+.linhaHistorico1 .error, .linhaHistorico2 .error { position: absolute; top: 100%; left: 0; margin-top: 4px; }
+.pillRemover { align-self: flex-start; height: 32px; padding: 0 16px; border: 1px solid var(--soft); border-radius: 16px; background: var(--white); color: var(--brand-primary); font-size: 13px; font-weight: 700; cursor: pointer; }
+.textarea { min-height: 44px; padding: 10px 14px; border: 1px solid #e3d6dc; border-radius: 8px; background: var(--white); color: var(--text); font: inherit; resize: vertical; }
+.textarea[aria-invalid='true'] { border-color: #c0392b; }

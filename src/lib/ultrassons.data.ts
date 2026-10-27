@@ -5,6 +5,7 @@ export const placentas = ['Anterior', 'Posterior', 'Fúndica', 'Prévia'] as con
 export const liquidos = ['Normal', 'Aumentado', 'Diminuído'] as const;
 
 export type UltrassomRegistro = {
+  pacienteId: string;
   id: string;
   data: string; // dd/mm/aaaa
   paciente: string;
@@ -15,12 +16,12 @@ export type UltrassomRegistro = {
 };
 
 export const ultrassons: UltrassomRegistro[] = [
-  { id: 'u1', data: '20/02/2026', paciente: 'Patrícia R. B. Moura', ig: '7+1', tipo: 'Obstétrico', apresentacao: '—', bcf: '126 bpm' },
-  { id: 'u2', data: '31/03/2026', paciente: 'Patrícia R. B. Moura', ig: '12+4', tipo: 'Morfológico', apresentacao: '—', bcf: '—' },
-  { id: 'u3', data: '28/04/2026', paciente: 'Patrícia R. B. Moura', ig: '17 sem', tipo: 'Obstétrico', apresentacao: 'Pélvica', bcf: '152 bpm' },
-  { id: 'u4', data: '27/07/2026', paciente: 'Patrícia R. B. Moura', ig: '30+1', tipo: 'Ecocardiografia', apresentacao: 'Cefálica', bcf: '163 bpm' },
-  { id: 'u5', data: '27/08/2026', paciente: 'Patrícia R. B. Moura', ig: '34+2', tipo: 'Doppler', apresentacao: 'Cefálica', bcf: '143 bpm' },
-  { id: 'u6', data: '10/09/2026', paciente: 'Patrícia R. B. Moura', ig: '36 sem', tipo: 'Obstétrico', apresentacao: 'Cefálica', bcf: '138 bpm' },
+  { id: 'u1', data: '20/02/2026', pacienteId: 'p1', paciente: 'Patrícia R. B. Moura', ig: '7+1', tipo: 'Obstétrico', apresentacao: '—', bcf: '126 bpm' },
+  { id: 'u2', data: '31/03/2026', pacienteId: 'p1', paciente: 'Patrícia R. B. Moura', ig: '12+4', tipo: 'Morfológico', apresentacao: '—', bcf: '—' },
+  { id: 'u3', data: '28/04/2026', pacienteId: 'p1', paciente: 'Patrícia R. B. Moura', ig: '17 sem', tipo: 'Obstétrico', apresentacao: 'Pélvica', bcf: '152 bpm' },
+  { id: 'u4', data: '27/07/2026', pacienteId: 'p1', paciente: 'Patrícia R. B. Moura', ig: '30+1', tipo: 'Ecocardiografia', apresentacao: 'Cefálica', bcf: '163 bpm' },
+  { id: 'u5', data: '27/08/2026', pacienteId: 'p1', paciente: 'Patrícia R. B. Moura', ig: '34+2', tipo: 'Doppler', apresentacao: 'Cefálica', bcf: '143 bpm' },
+  { id: 'u6', data: '10/09/2026', pacienteId: 'p1', paciente: 'Patrícia R. B. Moura', ig: '36 sem', tipo: 'Obstétrico', apresentacao: 'Cefálica', bcf: '138 bpm' },
 ];
 
 export const filtrosUltrassom = [
